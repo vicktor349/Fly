@@ -16,9 +16,10 @@ const Navbar = () => {
                     <Link href='/'>
                         <Image src={Logo}
                             alt='Home logo'
-                            height={80}
+                            height='auto'
                             width={140}
                             className='hover:cursor-pointer'
+                            priority={true}
                         />
                     </Link>
                 </h1>
