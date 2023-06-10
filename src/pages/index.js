@@ -1,6 +1,8 @@
-import { Button } from "@mantine/core"
+import { Button, Group } from "@mantine/core"
 import Head from "next/head"
 import { favicon } from '../public/images/logo/favicon.svg'
+import Rides from "@/components/Rides"
+import CarouselSlider from "@/components/CarouselSlider"
 
 
 
@@ -19,12 +21,24 @@ export default function Home() {
                 <h1 className="sm:text-3xl md:text-4xl lg:text-5xl font-bold">Book ride for any trip</h1>
               </div>
               <div>
-                <Button variant="outline">
-                  chat with us
-                </Button>
+                <Group>
+                  <Button
+                    rel="noopener noreferrer"
+                    component="a"
+                    target="_blank"
+                    variant="outline"
+                    href="https://wa.me/08124165949?text=I%20would%20like%20to%20join%20the%20family.%20My%20name%20is%20"
+                  >
+                    Chat with us
+                  </Button>
+                </Group>
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <Rides />
+          <CarouselSlider />
         </div>
       </main>
     </>
