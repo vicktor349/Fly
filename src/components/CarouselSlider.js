@@ -4,8 +4,8 @@ import { Carousel } from '@mantine/carousel';
 import Image from 'next/image';
 import bmw from '../public/images/slider/bmw.jpg'
 import sienna from '../public/images/slider/sienna.jpg'
-import truck from '../public/images/slider/Truck.jpg'
-import hilux from '../public/images/slider/Hilux.jpg'
+import truck from '../public/images/slider/truck.jpg'
+import hilux from '../public/images/slider/hilux.jpg'
 
 const CarouselSlider = () => {
   const autoplay = useRef(Autoplay({ delay: 3500 }));
