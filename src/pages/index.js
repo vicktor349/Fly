@@ -3,10 +3,12 @@ import Head from "next/head"
 import { favicon } from '../public/images/logo/favicon.svg'
 import Rides from "@/components/Rides"
 import CarouselSlider from "@/components/CarouselSlider"
+import { useSession } from "next-auth/react"
 
 
 
 export default function Home() {
+  const { data: session } = useSession()
   return (
     <>
       <Head>
@@ -22,15 +24,25 @@ export default function Home() {
               </div>
               <div>
                 <Group>
-                  <Button
-                    rel="noopener noreferrer"
-                    component="a"
-                    target="_blank"
-                    variant="outline"
-                    href="https://wa.me/08124165949?text=I%20would%20like%20to%20join%20the%20family.%20My%20name%20is%20"
-                  >
-                    Chat with us
-                  </Button>
+                  {session ?
+                    <Button
+                      component="a"
+                      variant="outline"
+                      href="/dashboard"
+                    >
+                      Order Now
+                    </Button>
+                    :
+                    <Button
+                      rel="noopener noreferrer"
+                      component="a"
+                      target="_blank"
+                      variant="outline"
+                      href="https://wa.me/08124165949?text=I%20would%20like%20to%20join%20the%20family.%20My%20name%20is%20"
+                    >
+                      Chat with us
+                    </Button>
+                  }
                 </Group>
               </div>
             </div>
