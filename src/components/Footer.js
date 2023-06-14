@@ -7,8 +7,8 @@ import { GrMail } from 'react-icons/gr'
 
 const Footer = () => {
     return (
-        <div className='bg-[#7AF687] mt-12 py-12'>
-            <div className='grid grid-cols-3 place-items-center mx-18'>
+        <div className='bg-[#7AF687] py-12'>
+            <div className='grid ssm:grid-cols-2 sm:grid-cols-3 place-items-center sm:mx-18'>
                 <Link href='/'>
                     <Image src={Logo}
                         alt='Home logo'
@@ -18,7 +18,7 @@ const Footer = () => {
                         priority={true}
                     />
                 </Link>
-                <div className='flex justify-between'>
+                <div className='flex justify-between ssm:hidden md:flex'>
                     <Input type='text' icon={<GrMail />} placeholder='Enter E-mail Address' />
                     <Button variant='outline' className='ml-6'>
                         Subscribe
