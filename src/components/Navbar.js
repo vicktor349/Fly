@@ -44,9 +44,20 @@ const Navbar = () => {
                     onClick={open}
                 />
                 <Drawer opened={opened} onClose={close} position='right' size='50%' overlayProps={{ opacity: "0.55", blur: "10" }}>
-                    <Button variant='outline' color='green' className='mt-5 flex mx-auto'>
+                    <Button variant='outline' component='a' href='/' color='green' className='mt-5 flex items-center justify-center mx-auto w-[5rem]'>
                         Home
                     </Button>
+                    <div className='mt-12'>
+                        {session ?
+                            <Button variant="outline" className='flex mx-auto' color="green" onClick={() => signOut()}>
+                                Sign Out
+                            </Button>
+                            :
+                            <Button variant="outline" className='flex mx-auto' color="green" onClick={() => signIn()}>
+                                Sign In
+                            </Button>
+                        }
+                    </div>
                 </Drawer>
             </div>
         </div>
