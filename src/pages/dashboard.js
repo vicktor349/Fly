@@ -9,15 +9,22 @@ import { BsTelephone } from 'react-icons/bs'
 import { FaCity } from 'react-icons/fa'
 import axios from 'axios';
 import { getSession, useSession } from 'next-auth/react';
-import Loader from '@/components/Loader';
-
+import PreLoader from '@/components/PreLoader';
+import { Loader } from '@mantine/core';
+import { Notification } from '@mantine/core';
+import { IconCheck } from '@tabler/icons-react';
+import { AiFillCar } from 'react-icons/ai'
+import { CgProfile } from 'react-icons/cg'
 
 const dashboard = () => {
     const id = useId()
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [city, setCity] = useState('')
-    const { data: session, status } = useSession()
+    const [destination, setDestination] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const { data: status } = useSession()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -25,20 +32,22 @@ const dashboard = () => {
             try {
                 const response = await axios.post('/api/proxy', {
                     body: `
-                        Email: ${email} \n
-                        Phone Number: ${phone} \n
-                        city: ${city}
+                        Hello FLYPS my name is ${name}, at ${city} going to ${destination}, You can contact with through ${phone} or ${email}
                     `,
                     from: 'whatsapp:+14155238886',
-                    to: 'whatsapp:+2348154552075',
+                    to: 'whatsapp:+2348124165949',
                 });
+                if (response.data.success) {
+                    setIsSubmitting(false)
+                }
                 console.log(response.data);
+                console.log(email, phone, city, name, destination)
             } catch (error) {
                 console.error(error);
             }
         };
-
         sendMessage();
+        setIsSubmitting(true)
     }
 
     if (status === 'authenticated') {
@@ -52,10 +61,21 @@ const dashboard = () => {
                 <main>
                     <div className='h-screen w-full flex items-center justify-center'>
                         <div className='px-16 py-20 bg-white'>
-                            <form action="" className='sm:w[30rem] md:w-[30rem] lg:w-[40rem]'>
+                            <form className='sm:w[30rem] md:w-[30rem] lg:w-[40rem]'>
                                 <h1 className='mb-4'>Book Ride</h1>
+                                <Input.Wrapper label='Name' className='mb-4'>
+                                    <Input
+                                        placeholder='Enter Your Name'
+                                        icon={<CgProfile />}
+                                        onChange={(e) => setName(e.target.value)}
+                                    />
+                                </Input.Wrapper>
                                 <Input.Wrapper label='Email' className='mb-4'>
-                                    <Input placeholder='Enter Your E-mail Address' icon={<IoAtSharp />} onChange={(e) => setEmail(e.target.value)} />
+                                    <Input placeholder='Enter Your E-mail Address'
+                                        icon={<IoAtSharp />}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
                                 </Input.Wrapper>
                                 <Input.Wrapper id={id} label="Phone">
                                     <Input
@@ -65,16 +85,19 @@ const dashboard = () => {
                                         component={IMaskInput}
                                         mask="+234 0000000000"
                                         id={id}
+                                        required
                                         placeholder="Your phone"
                                     />
                                 </Input.Wrapper>
                                 <Select
+                                    className='mb-4'
                                     icon={<FaCity />}
                                     label="City"
                                     onSearchChange={setCity}
                                     searchValue={city}
                                     placeholder="Pick one city"
                                     searchable
+                                    required
                                     nothingFound="No options"
                                     data={[
                                         { value: 'Afao', label: 'Afao' },
@@ -102,9 +125,22 @@ const dashboard = () => {
                                         { value: 'Oye-Ekiti', label: 'Oye-Ekiti' }
                                     ]}
                                 />
-                                <Button variant='outline' className='mt-4' type='submit' onClick={handleSubmit}>
-                                    Book
-                                </Button>
+                                <Input.Wrapper label='Destination'>
+                                    <Input placeholder='Enter Destination'
+                                        icon={<AiFillCar />}
+                                        onChange={(e) => setDestination(e.target.value)}
+                                    />
+                                </Input.Wrapper>
+                                {
+                                    isSubmitting ?
+                                        <Button disabled className='mt-4' color='green'>
+                                            Booking...<Loader size="xs" color='green' className='ml-4' />
+                                        </Button>
+                                        :
+                                        <Button variant='outline' color='green' className='mt-4' type='submit' onClick={handleSubmit}>
+                                            Book
+                                        </Button>
+                                }
                             </form>
                         </div>
                     </div>
@@ -113,7 +149,7 @@ const dashboard = () => {
         )
     } else {
         <div>
-            <Loader />
+            <PreLoader />
         </div>
     }
 }

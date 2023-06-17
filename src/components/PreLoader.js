@@ -42,7 +42,7 @@ const loadingCircleTransition = {
     ease: 'easeInOut'
 }
 
-const Loader = () => {
+const PreLoader = () => {
     return (
         <div>
             <div className="fixed  w-full min-h-screen z-50 bg-black opacity-30" />
@@ -74,4 +74,4 @@ const Loader = () => {
     );
 };
 
-export default Loader;
+export default PreLoader;
