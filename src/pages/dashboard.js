@@ -26,8 +26,7 @@ const dashboard = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { data: session, status } = useSession()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = () => {
         const sendMessage = async () => {
             try {
                 const response = await axios.post('/api/proxy', {
