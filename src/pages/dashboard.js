@@ -11,8 +11,6 @@ import axios from 'axios';
 import { getSession, useSession } from 'next-auth/react';
 import PreLoader from '@/components/PreLoader';
 import { Loader } from '@mantine/core';
-import { Notification } from '@mantine/core';
-import { IconCheck } from '@tabler/icons-react';
 import { AiFillCar } from 'react-icons/ai'
 import { CgProfile } from 'react-icons/cg'
 
